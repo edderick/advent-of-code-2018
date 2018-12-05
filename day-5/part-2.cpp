@@ -9,19 +9,16 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     vector<char> input;
+    unordered_set<char> distinct;
     char c;
     while (cin >> c) {
         input.push_back(c);
-    }
-
-    unordered_set<char> s;
-    for (char c : input) {
-        s.insert(tolower(c));
+        distinct.insert(tolower(c));
     }
 
     size_t minSize = UINT_MAX;
 
-    for (char c : s) {
+    for (char c : distinct) {
         vector<char> output;
 
         for (char x : input) {
