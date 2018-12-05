@@ -1,45 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <locale>
-#include <stack>
 
 using namespace std;
 
-int main(int argc, char* argv[])
-{
-    vector<char> input;
+int main(int argc, char* argv[]) {
+    vector<char> output;
+
     char c;
-    while (cin >> c)
-    {
-        input.push_back(c);
-    }
-
-    int count = 0; 
-
-
-    stack<char> lookBack; 
-    lookBack.push(input[0]);
-
-    for (int i = 1; i < input.size(); i++)
-    {
-        if (lookBack.empty())
-        {
-            lookBack.push(input[i]);
-            continue;
+    while (cin >> c) {
+        if (!output.empty() && output.back() != c && tolower(output.back()) == tolower(c)) {
+            output.pop_back();
         }
-
-        if (lookBack.top() != input[i] && tolower(lookBack.top()) == tolower(input[i]))
-        {
-            lookBack.pop();
-            count++;
-        }
-        else 
-        {
-            lookBack.push(input[i]);
+        else {
+            output.push_back(c);
         }
     }
         
-    cout << input.size() - (2 * count) << "\n";
-
+    cout << output.size() << "\n";
     return 0;
 }
