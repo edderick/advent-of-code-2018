@@ -10,10 +10,16 @@ using namespace std;
 int main(int argc, char* argv[]) {
     vector<char> input;
     unordered_set<char> distinct;
+
     char c;
     while (cin >> c) {
-        input.push_back(c);
-        distinct.insert(tolower(c));
+        if (!input.empty() && input.back() != c && tolower(input.back()) == tolower(c)) {
+            input.pop_back();
+        }
+        else {
+            input.push_back(c);
+            distinct.insert(tolower(c));
+        }
     }
 
     size_t minSize = UINT_MAX;
