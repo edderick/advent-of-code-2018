@@ -294,23 +294,21 @@ int main(int argc, char* argv[])
 
     int partOneSum = 0; 
     int partTwoSum = 0; 
-    int y = 0; 
     for (int i = 0; i < grid.size(); i++)
     {
-        if (i < minY)
+        if (i >= minY)
         {
-            continue;
-        }
-        for (const char c : grid[i])
-        {
-            if (c == '~')
+            for (const char c : grid[i])
             {
-                partOneSum++;
-                partTwoSum++;
-            }
-            else if (c == '|')
-            {
-                partOneSum++;
+                if (c == '~')
+                {
+                    partOneSum++;
+                    partTwoSum++;
+                }
+                else if (c == '|')
+                {
+                    partOneSum++;
+                }
             }
         }
     }

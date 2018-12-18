@@ -4,79 +4,49 @@
 
 using namespace std;
 
-void printGrid(const vector<string>& grid)
-{
-    for (const auto& row : grid)
-    {
+void printGrid(const vector<string>& grid) {
+    for (const auto& row : grid) {
         cout << row << "\n";
     }
     cout << "\n";
 }
 
-int countAdjacent(int x, int y, char c, const vector<string>& grid)
-{
+int countAdjacent(int x, int y, char c, const vector<string>& grid) {
     const int width = grid[0].size();
     const int height = grid.size();
 
     int count = 0;
-    // E SE S SW W
-
-    // N
-    if (y > 0 && grid[y - 1][x] == c)
-    {
+    if (y > 0 && grid[y - 1][x] == c) {
         count++;
     }
-
-    // NE 
-    if (y > 0 && x + 1 < width && grid[y - 1][x + 1] == c)
-    {
+    if (y > 0 && x + 1 < width && grid[y - 1][x + 1] == c) {
         count++;
     }
-
-    // E 
-    if (x < width && grid[y][x + 1] == c)
-    {
+    if (x < width && grid[y][x + 1] == c) {
         count++;
     }
-
-    // SE 
-    if (y + 1 < width && x + 1< width && grid[y + 1][x + 1] == c)
-    {
+    if (y + 1 < width && x + 1< width && grid[y + 1][x + 1] == c) {
         count++;
     }
-
-    // S
-    if (y + 1 < width && grid[y + 1][x] == c)
-    {
+    if (y + 1 < width && grid[y + 1][x] == c) {
         count++;
     }
-
-    // SW
-    if (y + 1 < width && x > 0 && grid[y + 1][x - 1] == c)
-    {
+    if (y + 1 < width && x > 0 && grid[y + 1][x - 1] == c) {
         count++;
     }
-
-    // W
-    if (x > 0 && grid[y][x - 1] == c)
-    {
+    if (x > 0 && grid[y][x - 1] == c) {
         count++;
     }
-
-    // NW
-    if (x > 0 && y > 0 && grid[y - 1][x - 1] == c)
-    {
+    if (x > 0 && y > 0 && grid[y - 1][x - 1] == c) {
         count++;
     }
     return count;
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     vector<string> grid;
     string line;
-    while (getline(cin, line))
-    {
+    while (getline(cin, line)) {
         grid.push_back(line);
     }
 
@@ -94,36 +64,26 @@ int main(int argc, char* argv[])
     long start = 0; 
     long end = 0; 
 
-    for (long i = 0; i < 1000000000; i++)
-    {
+    for (long i = 0; i < MAX; i++) {
         auto newGrid = grid;
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 const auto& cell = grid[y][x];
-                if (cell == '.')
-                {
-                    if (countAdjacent(x, y, '|', grid) >= 3)
-                    {
+                if (cell == '.') {
+                    if (countAdjacent(x, y, '|', grid) >= 3) {
                         newGrid[y][x] = '|';
                     }
                 }
-                else if (cell == '|') 
-                {
-                    if (countAdjacent(x, y, '#', grid) >= 3)
-                    {
+                else if (cell == '|') {
+                    if (countAdjacent(x, y, '#', grid) >= 3) {
                         newGrid[y][x] = '#';
                     }
                 }
-                else if (cell == '#')
-                {
-                    if (countAdjacent(x, y, '#', grid) >= 1 && countAdjacent(x, y, '|', grid) >= 1)
-                    {
+                else if (cell == '#') {
+                    if (countAdjacent(x, y, '#', grid) >= 1 && countAdjacent(x, y, '|', grid) >= 1) {
                         newGrid[y][x] = '#';
                     }
-                    else 
-                    {
+                    else {
                         newGrid[y][x] = '.';
                     }
                 }
@@ -131,8 +91,7 @@ int main(int argc, char* argv[])
         }
     
         auto it = seen.find(newGrid);
-        if (it != seen.end())
-        {
+        if (it != seen.end()) {
             cout << i << " : " << it->second << "\n";
             start = it->second; 
             end = i;
@@ -150,16 +109,12 @@ int main(int argc, char* argv[])
 
     int trees = 0;
     int lumberyards = 0; 
-    for (const auto& row : grids[num])
-    {
-        for (const auto& cell : row)
-        {
-            if (cell == '|')
-            {
+    for (const auto& row : grids[num]) {
+        for (const auto& cell : row) {
+            if (cell == '|') {
                 trees++; 
             }
-            else if (cell == '#')
-            {
+            else if (cell == '#') {
                 lumberyards++; 
             }
         }
